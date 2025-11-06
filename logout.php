@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// hapus semu session 
+// hapus semua session 
 session_unset();
 session_destroy();
 
