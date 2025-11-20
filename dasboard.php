@@ -1,20 +1,18 @@
 <?php
 session_start();
 
-// cek apakah user sudah login
+// Pastikan user sudah login
 if (!isset($_SESSION['username'])) {
-    header("location login.php");
-    exit;
+    header("Location: login.php");
+    exit();
 }
-?>
-<!DOCTYPE html>
-<html>
-    <head>
-        <tittle>dashboard</tittle>
-</head>
-<body>
-    <h2>Selamat Datang, <?php echo $_SESSION['username']; ?>!</h2>
-    <p>role: <?php echo $_SESSION['role']; ?><p>
-    <a  href="logout.php">logout</a>
-</body>
-</html>
+
+// Commit 5 – Setup Awal
+echo "<h2>--POLGAN MART--</h2>";
+echo "<p>Selamat datang, " . $_SESSION['username'] . "!</p><hr>";
+
+// Data produk (array)
+$kode_barang = ["B001", "B002", "B003", "B004", "B005"];
+$nama_barang = ["Sabun", "Sampo", "Pasta Gigi", "Tisu", "Detergen"];
+$harga_barang = [5000, 12000, 8000, 7000, 15000];
+

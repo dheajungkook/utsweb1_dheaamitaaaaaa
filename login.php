@@ -3,7 +3,7 @@ session_start();
 
 // Cek apakah user sudah login
 if (isset($_SESSION['username'])) {
-    header("Location: dashboard.php");
+    header("Location: dasboard.php");
     exit;
 }
 
@@ -13,10 +13,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = $_POST['password'] ?? '';
 
     // Login sederhana (username: admin, password: 123)
-    if ($username == 'nadia' && $password === '12345') {
+    if ($username === 'dhea' && $password === '12345') {
         $_SESSION['username'] = $username;
-        $_SESSION['role'] = 'mahasiswa';
-        header("Location: dashboard.php");
+        $_SESSION['role'] = 'Mahasiswa'; // Contoh role
+        header("Location: dasboard.php");
+        exit;
+    } else {
+        $error = "Username atau password salah!";
+    }
+}
+?><?php
+session_start();
+
+// Cek apakah user sudah login
+if (isset($_SESSION['username'])) {
+    header("Location: dasboard.php");
+    exit;
+}
+
+// Proses login saat form dikirim
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $username = $_POST['username'] ?? '';
+    $password = $_POST['password'] ?? '';
+
+    // Login sederhana (username: admin, password: 123)
+    if ($username == 'dhea' && $password === '12345') {
+        $_SESSION['username'] = $username;
+        $_SESSION['role'] = 'Dosen';
+        header("Location: dasboard.php");
         exit;
     } else {
         $error = "Username atau password salah!";
@@ -27,15 +51,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
+    <title>Polgan Mart</title>
 </head>
 <body>
-    <h2>Form Login</h2>
+    <h2>Polgan Mart</h2>
     <?php if (!empty($error)) echo "<p style='color:red;'>$error</p>"; ?>
     <form method="post">
         Username: <input type="text" name="username" required><br><br>
         Password: <input type="password" name="password" required><br><br>
         <button type="submit">Login</button>
     </form>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body>
+<h2>Form Login</h2>
+
+<?php if (!empty($error)) echo "<p style='color:red;'>$error</p>"; ?>
+
+<form method="post">
+    Username: <input type="text" name="username" required><br><br>
+    Password: <input type="password" name="password" required><br><br>
+    <button type="submit">Login</button>
+</form>
+
 </body>
 </html>
