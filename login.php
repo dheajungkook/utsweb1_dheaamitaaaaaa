@@ -1,20 +1,19 @@
 <?php
-
 session_start();
 
-// Cek apakah user sudah login
+// Jika sudah login, langsung ke dashboard
 if (isset($_SESSION['username'])) {
     header("Location: dasboard.php");
     exit;
 }
 
-// Proses login saat form dikirim
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+// Proses login sederhana
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
 
-    // Login sederhana (username: admin, password: 123)
-    if ($username == 'dhea' && $password === '12345') {
+    // Contoh login statis (bisa kamu ubah nanti)
+    if ($username === 'dhea' && $password === '123') {
         $_SESSION['username'] = $username;
         $_SESSION['role'] = 'Dosen';
         header("Location: dasboard.php");
@@ -24,29 +23,87 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
-
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-    <title>Halaman Login</title>
+<meta charset="UTF-8">
+<title>Login - POLGAN MART</title>
+<style>
+    /* Tema Pink Peach Login */
+:root {
+    --peach: #ffb6ab;
+    --peach-soft: #ffe5e1;
+    --peach-dark: #ff9689;
+}
+
+body {
+    font-family: Arial;
+    background: var(--peach-soft);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    margin:0;
+}
+
+.login-box {
+    background:white;
+    padding:35px;
+    width:350px;
+    border-radius:15px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.15);
+    text-align:center;
+}
+
+.login-box h2 {
+    color: var(--peach-dark);
+    margin-bottom: 20px;
+}
+
+input {
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border:2px solid var(--peach);
+    border-radius:10px;
+    background:#fff7f6;
+}
+
+input:focus {
+    outline:none;
+    background:white;
+    border-color: var(--peach-dark);
+}
+
+button {
+    width:100%;
+    padding:12px;
+    background: var(--peach);
+    border:none;
+    border-radius:10px;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:hover {
+    background: var(--peach-dark);
+}
+
+</style>
 </head>
 <body>
-
-<h2>Login</h2>
-
-<?php if (!empty($error)) : ?>
-    <p style="color:red;"><?php echo $error; ?></p>
-<?php endif; ?>
-
-<form method="POST">
-    <label>Username :</label><br>
-    <input type="text" name="username" required><br><br>
-
-    <label>Password :</label><br>
-    <input type="password" name="password" required><br><br>
-
-    <button type="submit">Login</button>
-</form>
-
+<div class="login-card">
+    <h2>POLGAN MART</h2>
+    <form method="POST">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <?php if (!empty($error)): ?>
+            <p class="error"><?= htmlspecialchars($error) ?></p>
+        <?php endif; ?>
+        <button type="submit">Login</button>
+    </form>
+</div>
 </body>
 </html>
